@@ -1162,8 +1162,45 @@
                     not optional, and not something you can skip "because it's a small change."</p>
                 </div>
 
+                <div class="highlight-box success" style="margin-bottom: 25px;">
+                    <h4><i class="fas fa-tachometer-alt"></i> Testing Performance Targets</h4>
+                    <p><strong>Unit Tests:</strong> Execute in &lt; 100ms per test | <strong>Integration Tests:</strong> Execute in &lt; 5s per test | 
+                    <strong>E2E Tests:</strong> Execute in &lt; 30s per test. Test suites should complete in &lt; 5 minutes total.</p>
+                </div>
+
                 <h3><i class="fas fa-layer-group"></i> The Testing Pyramid</h3>
-                <p>Apply appropriate testing based on context and risk:</p>
+                <p>Apply appropriate testing based on context and risk. Use this decision framework:</p>
+
+                <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: var(--accent);">
+                    <h3 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Testing Decision Framework</h3>
+                    <div class="check-item" style="background: white;">
+                        <strong>Write Unit Tests When:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Testing business logic in isolation</li>
+                            <li>Validating data transformations</li>
+                            <li>Checking edge cases and boundary conditions</li>
+                            <li>Verifying algorithm correctness</li>
+                        </ul>
+                    </div>
+                    <div class="check-item" style="background: white; margin-top: 15px;">
+                        <strong>Write Integration Tests When:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Testing API endpoints with database</li>
+                            <li>Verifying service-to-service communication</li>
+                            <li>Validating data persistence</li>
+                            <li>Testing error handling and rollback scenarios</li>
+                        </ul>
+                    </div>
+                    <div class="check-item" style="background: white; margin-top: 15px;">
+                        <strong>Write E2E Tests When:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Testing critical user workflows (login, checkout, payment)</li>
+                            <li>Validating complete business processes</li>
+                            <li>Testing cross-browser compatibility</li>
+                            <li>Verifying user experience end-to-end</li>
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="two-column">
                     <div class="column">
@@ -1209,9 +1246,21 @@
                 </div>
             </div>
 
+            <div class="highlight-box" style="margin: 25px 0;">
+                <h4><i class="fas fa-exclamation-triangle"></i> Common Testing Mistakes to Avoid</h4>
+                <ul style="margin-top: 15px; margin-left: 20px;">
+                    <li><strong>Testing Implementation Details:</strong> Don't test that a function calls another function. Test the behavior and outcome.</li>
+                    <li><strong>Over-Mocking:</strong> Mock external dependencies, but test real logic. Too many mocks hide bugs.</li>
+                    <li><strong>Testing Framework Features:</strong> Don't test React, test your components. Don't test Express, test your routes.</li>
+                    <li><strong>Ignoring Flaky Tests:</strong> Fix or remove flaky tests. They erode trust in the test suite.</li>
+                    <li><strong>Testing Only Happy Paths:</strong> Most bugs occur in error conditions. Test failures, edge cases, and invalid inputs.</li>
+                </ul>
+            </div>
+
             <div class="content-block">
                 <h3><i class="fas fa-bug"></i> Testing Failure Modes: The "Negative" Path</h3>
-                <p>Don't just test the happy path. Every feature must be tested against failure scenarios:</p>
+                <p>Don't just test the happy path. Every feature must be tested against failure scenarios. 
+                <strong>Related:</strong> This aligns with your Context Check (Section 1) - high-stakes features need more comprehensive failure testing.</p>
                 <ul class="guideline-list">
                     <li>
                         <strong>Network Failures</strong>
@@ -1483,6 +1532,12 @@ Act as a security adversary and tell me:</span>
                 </ul>
     </div>
 
+            <div class="highlight-box success" style="margin-bottom: 25px;">
+                <h4><i class="fas fa-tachometer-alt"></i> Frontend Performance Targets</h4>
+                <p><strong>LCP (Largest Contentful Paint):</strong> &lt; 2.5s | <strong>FID (First Input Delay):</strong> &lt; 100ms | 
+                <strong>CLS (Cumulative Layout Shift):</strong> &lt; 0.1 | <strong>TTI (Time to Interactive):</strong> &lt; 3.8s</p>
+            </div>
+
             <div class="content-block">
                 <h3><i class="fab fa-react"></i> React & React Native Fundamentals</h3>
                 <p>Deep understanding of React's rendering and state management:</p>
@@ -1512,6 +1567,35 @@ Act as a security adversary and tell me:</span>
                     <h4><i class="fas fa-question-circle"></i> Critical Understanding</h4>
                     <p>You must be able to <strong>explain why a component re-renders</strong> and <strong>how memoization (useCallback, useMemo) affects performance</strong>. 
                     If you can't explain it, you shouldn't use it.</p>
+                </div>
+
+                <div class="highlight-box danger" style="margin-top: 25px;">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Common React Mistakes</h4>
+                    <ul style="margin-top: 15px; margin-left: 20px;">
+                        <li><strong>Overusing useMemo/useCallback:</strong> These have overhead. Only use when profiling shows a performance issue.</li>
+                        <li><strong>Creating functions in render:</strong> Pass stable function references to child components.</li>
+                        <li><strong>Missing keys in lists:</strong> Always provide stable, unique keys. Index as key is an anti-pattern.</li>
+                        <li><strong>State in wrong place:</strong> Lift state up only when needed. Don't over-lift.</li>
+                        <li><strong>useEffect without dependencies:</strong> Missing dependencies cause stale closures. Include all dependencies.</li>
+                        <li><strong>Fetching in useEffect:</strong> Use React Query or SWR for data fetching, not useEffect.</li>
+                    </ul>
+                </div>
+
+                <div class="context-check" style="margin-top: 25px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--warning);">
+                    <h3 style="color: #856404; margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Why is my component re-rendering?</h3>
+                    <div class="check-item" style="background: white;">
+                        <strong>Check these in order:</strong>
+                        <ol style="margin-top: 10px; margin-left: 20px;">
+                            <li><strong>Parent re-rendered:</strong> Use React DevTools Profiler to see render tree</li>
+                            <li><strong>State changed:</strong> Check if state/props actually changed (use Object.is or deep comparison)</li>
+                            <li><strong>Context value changed:</strong> Context providers re-render all consumers when value changes</li>
+                            <li><strong>Function reference changed:</strong> Inline functions create new references on every render</li>
+                            <li><strong>Object/Array reference changed:</strong> New object/array literals create new references</li>
+                        </ol>
+                        <p style="margin-top: 10px; font-style: italic; color: var(--text-muted);">
+                            <strong>Solution:</strong> Use React.memo, useMemo, useCallback, or move state down to reduce re-render scope.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1549,8 +1633,45 @@ Act as a security adversary and tell me:</span>
                 </ul>
             </div>
 
+            <div class="highlight-box success" style="margin-bottom: 25px;">
+                <h4><i class="fas fa-tachometer-alt"></i> Database Performance Targets</h4>
+                <p><strong>Read Queries:</strong> &lt; 50ms p95 | <strong>Write Queries:</strong> &lt; 200ms p95 | 
+                <strong>Connection Pool:</strong> Monitor utilization, keep &lt; 80% | <strong>Query Timeout:</strong> Set appropriate timeouts (typically 5-30s)</p>
+            </div>
+
             <div class="content-block">
                 <h3><i class="fas fa-exchange-alt"></i> SQL vs NoSQL: Understanding Trade-offs</h3>
+                <p><strong>Decision Framework:</strong> Use this criteria to choose between SQL and NoSQL databases.</p>
+                
+                <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: var(--primary);">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> SQL vs NoSQL Decision Tree</h3>
+                    <div class="check-item" style="background: white;">
+                        <strong>Choose SQL (PostgreSQL, MySQL) when:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>You need complex queries with JOINs and aggregations</li>
+                            <li>ACID transactions are critical (financial transactions, payments)</li>
+                            <li>Data relationships are important (normalized data model)</li>
+                            <li>Data consistency is paramount (can't tolerate eventual consistency)</li>
+                            <li>You need strong schema enforcement</li>
+                            <li>Reporting and analytics are primary use cases</li>
+                        </ul>
+                    </div>
+                    <div class="check-item" style="background: white; margin-top: 15px;">
+                        <strong>Choose NoSQL (MongoDB, DynamoDB) when:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>You need horizontal scaling (millions of requests per second)</li>
+                            <li>Schema is flexible or evolves frequently</li>
+                            <li>Simple key-value or document access patterns</li>
+                            <li>High write throughput is required</li>
+                            <li>Eventual consistency is acceptable</li>
+                            <li>You need geographic distribution with low latency</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 15px; padding: 15px; background: white; border-radius: 10px; font-style: italic; color: var(--text-muted);">
+                        <strong>Remember:</strong> Many systems use both. Use SQL for transactional data, NoSQL for high-scale read/write operations.
+                    </p>
+                </div>
+
                 <div class="two-column">
                     <div class="column">
                         <h4><i class="fas fa-table"></i> SQL (PostgreSQL, MySQL)</h4>
@@ -1716,6 +1837,12 @@ Act as a security adversary and tell me:</span>
                 </div>
             </div>
 
+            <div class="highlight-box success" style="margin-bottom: 25px;">
+                <h4><i class="fas fa-tachometer-alt"></i> Infrastructure Performance Targets</h4>
+                <p><strong>API Response Time:</strong> &lt; 200ms p95 | <strong>Deployment Time:</strong> &lt; 10 minutes | 
+                <strong>Rollback Time:</strong> &lt; 5 minutes | <strong>Uptime SLA:</strong> 99.9% (8.76 hours downtime/year)</p>
+            </div>
+
             <div class="content-block">
                 <h3><i class="fas fa-network-wired"></i> Networking Fundamentals</h3>
                 <ul class="guideline-list">
@@ -1738,9 +1865,41 @@ Act as a security adversary and tell me:</span>
                 </ul>
             </div>
 
+            <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: var(--danger);">
+                <h3 style="color: var(--danger); margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Common Production Issues</h3>
+                <div class="check-item" style="background: white;">
+                    <strong>Lambda Timeout:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Check CloudWatch logs for slow operations</li>
+                        <li>Verify database query performance (use EXPLAIN)</li>
+                        <li>Check external API response times</li>
+                        <li>Consider increasing timeout or breaking into smaller functions</li>
+                    </ul>
+                </div>
+                <div class="check-item" style="background: white; margin-top: 15px;">
+                    <strong>High Error Rate:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Check error logs for patterns (Sentry, CloudWatch)</li>
+                        <li>Verify recent deployments (rollback if needed)</li>
+                        <li>Check database connection pool exhaustion</li>
+                        <li>Monitor external service health</li>
+                    </ul>
+                </div>
+                <div class="check-item" style="background: white; margin-top: 15px;">
+                    <strong>Slow Database Queries:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Use EXPLAIN to analyze query plans</li>
+                        <li>Check for missing indexes</li>
+                        <li>Look for N+1 query problems</li>
+                        <li>Consider query optimization or caching</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="content-block">
                 <h3><i class="fas fa-bug"></i> Debugging in Production</h3>
-                <p>Ability to debug backend services in both development and production:</p>
+                <p>Ability to debug backend services in both development and production. 
+                <strong>Related:</strong> This connects to Ownership (Section 2) - you must be able to debug what you deploy.</p>
                 <ul class="guideline-list">
                     <li>
                         <strong>Logging</strong>
