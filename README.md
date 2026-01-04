@@ -1,6 +1,6 @@
 # EchorTech Developer Guidelines & Engineering Standards
 
-**Version 1.0** | Authoritative Onboarding & Reference Guide
+**Version 1.0** | Engineering Culture Transformation Guide
 
 This repository contains the comprehensive developer guidelines and engineering standards for EchorTech. This document serves as the foundation for our engineering culture transformation, moving from "ticket closers" to "domain-aware engineers."
 
