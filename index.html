@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchorTech Developer Guidelines & Engineering Standards</title>
+    <meta name="description" content="Comprehensive developer guidelines and engineering standards for EchorTech. Authoritative onboarding and reference guide for all engineers.">
+    <meta property="og:title" content="EchorTech Developer Guidelines & Engineering Standards">
+    <meta property="og:description" content="Comprehensive engineering standards and guidelines. Transform from ticket closers to domain-aware engineers.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary: #2f8d46;
+            --secondary: #24292e;
+            --accent: #0366d6;
+            --warning: #ff9800;
+            --danger: #dc3545;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666;
+            --border-radius: 16px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            z-index: 1002;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 4px rgba(47, 141, 70, 0.3);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top:hover {
+            background: #1e6b35;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1003;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2f8d46 100%);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        header .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        header .version {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--card-bg);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Section Cards */
+        .section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e8e8e8;
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #1e6b35);
+            color: white;
+            border-radius: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-right: 20px;
+            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Content Blocks */
+        .content-block {
+            margin-bottom: 35px;
+        }
+
+        .content-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-block h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .content-block h3 i {
+            margin-right: 12px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .content-block p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Lists */
+        .guideline-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .guideline-list li {
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 50px;
+            transition: all 0.2s ease;
+        }
+
+        .guideline-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 18px;
+            top: 15px;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .guideline-list li:hover {
+            background: #e8f5e9;
+            transform: translateX(5px);
+        }
+
+        .guideline-list li strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+        }
+
+        .guideline-list li span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-left: 5px solid var(--warning);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
+        }
+
+        .highlight-box.danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-left-color: var(--danger);
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-left-color: var(--primary);
+        }
+
+        .highlight-box h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #856404;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-box.danger h4 {
+            color: #721c24;
+        }
+
+        .highlight-box.success h4 {
+            color: #155724;
+        }
+
+        .highlight-box h4 i {
+            margin-right: 10px;
+        }
+
+        /* Context Check Box */
+        .context-check {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 24px rgba(3, 102, 214, 0.15);
+        }
+
+        .context-check h3 {
+            color: var(--accent);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .context-check h3 i {
+            margin-right: 12px;
+            font-size: 1.5rem;
+        }
+
+        .context-check .check-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .context-check .check-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .context-check .check-item strong {
+            color: var(--accent);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .context-check .check-item ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .context-check .check-item li {
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        /* Code/Prompt Examples */
+        .code-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-example .comment {
+            color: #6a9955;
+        }
+
+        .code-example .keyword {
+            color: #569cd6;
+        }
+
+        .code-example .string {
+            color: #ce9178;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .column {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-top: 3px solid var(--primary);
+        }
+
+        .column h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge.primary {
+            background: #e8f5e9;
+            color: var(--primary);
+        }
+
+        .badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            nav .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            nav a {
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, footer {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-code"></i> EchorTech</h1>
+            <p class="subtitle">Developer Guidelines & Engineering Standards</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#philosophy">Philosophy</a>
+            <a href="#ownership">Ownership</a>
+            <a href="#testing">Testing</a>
+            <a href="#llm">LLM Usage</a>
+            <a href="#frontend">Frontend</a>
+            <a href="#backend">Backend</a>
+            <a href="#devops">DevOps</a>
+            <a href="#conduct">Conduct</a>
+        </div>
+    </nav>
+
+    <main id="main">
+        <!-- Section 1: Engineering Philosophy -->
+        <section id="philosophy" class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div class="section-title">
+                    <h2>Engineering Philosophy</h2>
+                    <p>Fundamentals over frameworks, clarity over cleverness, ownership over delegation</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 25px;">
+                    Engineering at EchorTech prioritizes <strong>fundamentals over frameworks</strong>, <strong>clarity over cleverness</strong>, and <strong>ownership over delegation</strong>. 
+                    This philosophy ensures that every engineer can read, reason about, debug, test, and evolve existing systems confidently.
+                </p>
+
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-lightbulb"></i> Core Principle</h4>
+                    <p><strong>Strong fundamentals</strong> mean the ability to read, reason about, debug, test, and evolve existing systems confidently. 
+                    Every engineer is accountable for the quality, stability, and long-term health of the code they contribute.</p>
+                </div>
+
+                <div class="context-check">
+                    <h3><i class="fas fa-clipboard-check"></i> The Context Check: Mandatory Pre-Development Ritual</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-main);">
+                        <strong>Before writing a single line of code</strong>, every developer must complete this context check. 
+                        This transforms "ticket closers" into "domain-aware engineers" who understand the business impact of their work.
+                    </p>
+                    
+                    <div class="check-item">
+                        <strong>1. Identify The Domain</strong>
+                        <p style="margin-top: 8px; margin-bottom: 8px;">What industry or business domain does this feature serve?</p>
+                        <ul>
+                            <li><strong>Fintech:</strong> Financial transactions, payments, trading systems</li>
+                            <li><strong>Healthcare:</strong> Patient data, medical records, HIPAA compliance</li>
+                            <li><strong>Logistics:</strong> Shipping, inventory, real-time tracking</li>
+                            <li><strong>E-commerce:</strong> Product catalogs, checkout, order management</li>
+                    </ul>
+                </div>
+                
+                    <div class="check-item">
+                        <strong>2. Define The Currency of Trust</strong>
+                        <p style="margin-top: 8px; margin-bottom: 8px;">What is the most critical quality attribute for this domain?</p>
+                        <ul>
+                            <li><strong>Fintech:</strong> <span style="color: var(--danger);">Precision</span> (decimal math accuracy), <span style="color: var(--danger);">Audit Trails</span> (immutable transaction logs)</li>
+                            <li><strong>Healthcare:</strong> <span style="color: var(--danger);">Privacy</span> (PII/PHI protection), <span style="color: var(--danger);">Access Control</span> (role-based permissions)</li>
+                            <li><strong>Logistics:</strong> <span style="color: var(--danger);">Offline Capability</span> (works without internet), <span style="color: var(--danger);">Sync Conflict Resolution</span> (handles concurrent updates)</li>
+                            <li><strong>Trading Systems:</strong> <span style="color: var(--danger);">Speed</span> (latency matters), <span style="color: var(--danger);">Idempotency</span> (duplicate requests are safe)</li>
+                    </ul>
+                </div>
+
+                    <div class="check-item">
+                        <strong>3. Understand The Stakes</strong>
+                        <p style="margin-top: 8px; margin-bottom: 8px;">What happens if this feature breaks in production?</p>
+                        <ul>
+                            <li>Do we lose money? (Payment processing failure)</li>
+                            <li>Do we violate regulations? (HIPAA breach, PCI-DSS violation)</li>
+                            <li>Do we lose customer trust? (Data leak, privacy violation)</li>
+                            <li>Do we just annoy users? (UI glitch, slow loading)</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-style: italic; color: var(--text-muted);">
+                            The stakes determine your testing strategy, monitoring approach, and deployment process.
+                        </p>
+            </div>
+        </div>
+
+                <div class="highlight-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Remember</h4>
+                    <p>A developer who doesn't understand the domain-specific risks (e.g., "Privacy" in Health vs. "Speed" in Trading) 
+                    will inevitably build fragile or dangerous software. The Context Check prevents this.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Responsibility & Ownership -->
+        <section id="ownership" class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div class="section-title">
+                    <h2>Responsibility & Ownership</h2>
+                    <p>End-to-end accountability from design to deployment</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-user-shield"></i> Definition of Ready: The Ownership Standard</h3>
+                <p>Before beginning development, you must be able to answer these questions:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Who uses this feature?</strong>
+                        <span>Identify the end-user persona, their technical proficiency, and their primary use case.</span>
+                    </li>
+                    <li>
+                        <strong>What breaks if this fails?</strong>
+                        <span>Understand the failure modes: Does it block critical workflows? Does it expose sensitive data? Does it cause financial loss?</span>
+                    </li>
+                    <li>
+                        <strong>How will I verify it works in production?</strong>
+                        <span>Define your verification strategy: monitoring, logging, user testing, or automated checks.</span>
+                    </li>
+                    </ul>
+                </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-tasks"></i> End-to-End Ownership</h3>
+                <p>Developers own their changes from conception to production monitoring:</p>
+                
+                <div class="two-column">
+                    <div class="column">
+                        <h4><i class="fas fa-drafting-compass"></i> Design Phase</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Clarify requirements and edge cases before coding</li>
+                            <li>Identify ambiguity and seek clarification</li>
+                            <li>Consider failure modes and error handling</li>
+                    </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-code"></i> Implementation Phase</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Write code that you can explain to a junior developer</li>
+                            <li>Document complex logic and business rules</li>
+                            <li>Consider performance and scalability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="two-column" style="margin-top: 20px;">
+                    <div class="column">
+                        <h4><i class="fas fa-vial"></i> Testing Phase</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Write tests before or alongside code</li>
+                            <li>Test failure modes, not just happy paths</li>
+                            <li>Verify edge cases and boundary conditions</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-rocket"></i> Deployment & Monitoring</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Deploy and verify in production yourself</li>
+                            <li>Monitor metrics and logs post-deployment</li>
+                            <li>Be available for immediate rollback if needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-comments"></i> Communication & Explanation</h3>
+                <p>Every engineer must be able to explain:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>What their code does</strong>
+                        <span>Clear, concise explanation of functionality and purpose.</span>
+                    </li>
+                    <li>
+                        <strong>Why it exists</strong>
+                        <span>The business problem it solves and the user need it addresses.</span>
+                    </li>
+                    <li>
+                        <strong>How it can fail</strong>
+                        <span>Known failure modes, edge cases, and potential bugs.</span>
+                    </li>
+                    <li>
+                        <strong>How it can be debugged</strong>
+                        <span>Logging strategy, error messages, and troubleshooting steps.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="highlight-box success">
+                <h4><i class="fas fa-heart"></i> Incident Culture</h4>
+                <p><strong>If a defect escapes to production:</strong> The focus is on understanding <em>why it happened</em> and <em>preventing recurrence</em>, 
+                not assigning blame. We fix the system, not the person. Every incident is a learning opportunity.</p>
+                    </div>
+
+            <div class="highlight-box danger">
+                <h4><i class="fas fa-ban"></i> No "Throwing Over the Wall"</h4>
+                <p>You cannot write code, push it, and assume someone else will handle deployment, testing, or production issues. 
+                Ownership means you are responsible for the entire lifecycle of your changes.</p>
+                </div>
+        </section>
+
+        <!-- Section 3: Testing & Quality Standards -->
+        <section id="testing" class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div class="section-title">
+                    <h2>Testing & Quality Standards</h2>
+                    <p>Testing is mandatory, not optional</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="highlight-box danger">
+                    <h4><i class="fas fa-exclamation-circle"></i> Mandatory Responsibility</h4>
+                    <p><strong>Testing is a mandatory developer responsibility.</strong> It is not delegated to QA, 
+                    not optional, and not something you can skip "because it's a small change."</p>
+                </div>
+
+                <h3><i class="fas fa-layer-group"></i> The Testing Pyramid</h3>
+                <p>Apply appropriate testing based on context and risk:</p>
+
+                <div class="two-column">
+                    <div class="column">
+                        <h4><i class="fas fa-cube"></i> Unit Tests</h4>
+                        <p style="margin-bottom: 15px;"><strong>When:</strong> Test individual functions, methods, or components in isolation.</p>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Mock external dependencies (APIs, databases, file systems)</li>
+                            <li>Test business logic and data transformations</li>
+                            <li>Fast execution (milliseconds per test)</li>
+                            <li>High coverage of edge cases and error paths</li>
+                    </ul>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                            <strong>Tools:</strong> Jest, Vitest, pytest, Go testing package
+                        </p>
+                </div>
+                    <div class="column">
+                        <h4><i class="fas fa-puzzle-piece"></i> Integration Tests</h4>
+                        <p style="margin-bottom: 15px;"><strong>When:</strong> Test interactions between components (API + Database, Service + Queue).</p>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Use Docker containers for databases and external services</li>
+                            <li>Test real API endpoints with test data</li>
+                            <li>Verify data persistence and retrieval</li>
+                            <li>Test error handling and rollback scenarios</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                            <strong>Tools:</strong> Supertest, pytest with fixtures, Docker Compose
+                        </p>
+            </div>
+        </div>
+
+                <div class="column" style="margin-top: 20px; max-width: 100%;">
+                    <h4><i class="fas fa-sitemap"></i> End-to-End (E2E) Tests</h4>
+                    <p style="margin-bottom: 15px;"><strong>When:</strong> Test critical user flows from start to finish.</p>
+                    <ul class="guideline-list" style="margin-top: 15px;">
+                        <li>Test complete workflows (e.g., User Registration → Login → Purchase → Payment)</li>
+                        <li>Verify UI interactions and user experience</li>
+                        <li>Test in production-like environments</li>
+                        <li>Focus on high-value, high-risk paths</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                        <strong>Tools:</strong> Cypress, Playwright, Selenium
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-bug"></i> Testing Failure Modes: The "Negative" Path</h3>
+                <p>Don't just test the happy path. Every feature must be tested against failure scenarios:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Network Failures</strong>
+                        <span>What happens when the API times out? When the database connection drops? When Redis is unavailable?</span>
+                    </li>
+                    <li>
+                        <strong>Invalid Input</strong>
+                        <span>Test with null, undefined, empty strings, special characters, SQL injection attempts, XSS payloads.</span>
+                    </li>
+                    <li>
+                        <strong>Edge Cases</strong>
+                        <span>Empty lists, zero values, negative numbers, extremely large numbers, unicode characters, timezone boundaries.</span>
+                    </li>
+                    <li>
+                        <strong>Concurrency Issues</strong>
+                        <span>Race conditions, duplicate requests, simultaneous updates, deadlocks.</span>
+                    </li>
+                    <li>
+                        <strong>Resource Exhaustion</strong>
+                        <span>Memory limits, disk space, rate limits, connection pool exhaustion.</span>
+                    </li>
+                    </ul>
+                </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-clipboard-list"></i> Code Completeness Criteria</h3>
+                <p>A feature is considered <strong>incomplete</strong> if:</p>
+                <ul class="guideline-list">
+                    <li>Its failure modes have not been evaluated and tested</li>
+                    <li>Edge cases are not handled or documented</li>
+                    <li>It passes code review but fails basic scenarios in testing</li>
+                    <li>Error messages are unclear or unhelpful</li>
+                    <li>There is no way to verify it works in production</li>
+                    </ul>
+                </div>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-info-circle"></i> Manual Verification</h4>
+                <p>For some scenarios (UI polish, complex user workflows, visual regression), <strong>documented manual verification</strong> 
+                is acceptable. However, this must be explicitly documented with step-by-step instructions and expected outcomes.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Responsible LLM Usage -->
+        <section id="llm" class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div class="section-title">
+                    <h2>Responsible LLM Usage</h2>
+                    <p>LLMs are productivity tools, not sources of truth</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="highlight-box danger">
+                    <h4><i class="fas fa-shield-alt"></i> Critical Rule</h4>
+                    <p><strong>All LLM-generated outputs must be validated by execution, testing, or reasoning through concrete examples before use.</strong> 
+                    Never copy-paste AI-generated code directly into production without review.</p>
+                </div>
+
+                <h3><i class="fas fa-sandwich"></i> The "Context Sandwich" Prompt Pattern</h3>
+                <p>Instead of asking vague questions like "How do I do X?", structure your prompts with clear context:</p>
+
+                <div class="code-example">
+<span class="comment">// ❌ BAD: Vague, no context</span>
+<span class="string">"How do I create an S3 bucket?"</span>
+
+<span class="comment">// ✅ GOOD: Context Sandwich Pattern</span>
+<span class="keyword">1. Role:</span> <span class="string">"Act as a Senior AWS Architect with expertise in HIPAA compliance..."</span>
+
+<span class="keyword">2. Context:</span> <span class="string">"We are building a healthcare application that stores patient medical records. 
+We need to ensure encryption at rest, audit logging, and strict access controls..."</span>
+
+<span class="keyword">3. Task:</span> <span class="string">"Write a Terraform script to create an S3 bucket with the following requirements..."</span>
+
+<span class="keyword">4. Constraints:</span> <span class="string">"Ensure encryption is enabled (SSE-S3 or KMS), public access is blocked, 
+versioning is enabled, and lifecycle policies are configured for compliance retention."</span>
+                </div>
+
+                <div class="two-column" style="margin-top: 25px;">
+                    <div class="column">
+                        <h4><i class="fas fa-check-circle"></i> Best Practices</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Use clear task descriptions with specific requirements</li>
+                            <li>Break large tasks into smaller, focused chunks</li>
+                            <li>Provide only relevant context (don't paste entire codebases)</li>
+                            <li>Use step-by-step prompting for complex problems</li>
+                            <li>Request constrained output formats (JSON, specific code patterns)</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-times-circle"></i> What to Avoid</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Vague or ambiguous prompts</li>
+                            <li>Including secrets, credentials, or API keys</li>
+                            <li>Pasting entire files without context</li>
+                            <li>Asking for code without specifying constraints</li>
+                            <li>Trusting AI output without validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-user-secret"></i> The "Adversary" Prompt: Self-Audit Before Code Review</h3>
+                <p>Before pushing code, use this prompt pattern to self-audit for security and quality issues:</p>
+
+                <div class="code-example">
+<span class="comment">// Example: Security Audit</span>
+<span class="string">"I just wrote this function to handle user authentication. 
+Act as a security adversary and tell me:</span>
+<span class="keyword">1.</span> <span class="string">How can this be exploited via SQL injection?</span>
+<span class="keyword">2.</span> <span class="string">What happens if an attacker sends malformed input?</span>
+<span class="keyword">3.</span> <span class="string">Are there any race conditions or timing attacks?</span>
+<span class="keyword">4.</span> <span class="string">What sensitive data might be leaked in error messages?"</span>
+
+<span class="comment">// Example: Code Quality Audit</span>
+<span class="string">"Review this code for:</span>
+<span class="keyword">-</span> <span class="string">Performance bottlenecks</span>
+<span class="keyword">-</span> <span class="string">Memory leaks</span>
+<span class="keyword">-</span> <span class="string">Error handling gaps</span>
+<span class="keyword">-</span> <span class="string">Edge cases that aren't handled"</span>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-lock"></i> Data Hygiene: Never Include Sensitive Data</h3>
+                <div class="highlight-box danger">
+                    <h4><i class="fas fa-ban"></i> Never Include in Prompts</h4>
+                    <ul style="margin-top: 15px; margin-left: 20px;">
+                        <li><strong>Secrets:</strong> API keys, passwords, tokens, private keys</li>
+                        <li><strong>Credentials:</strong> Database connection strings, AWS access keys, OAuth secrets</li>
+                        <li><strong>Client PII:</strong> Names, emails, phone numbers, addresses</li>
+                        <li><strong>PHI (Protected Health Information):</strong> Medical records, patient data, health identifiers</li>
+                        <li><strong>Financial Data:</strong> Credit card numbers, bank account details, transaction IDs</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 20px;">If you need to test with sensitive data patterns, use anonymized examples or synthetic data that mimics the structure without exposing real information.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-vial"></i> Validation Strategy</h3>
+                <p>For any AI-generated code, especially for critical operations, follow this validation process:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Generate Tests First</strong>
+                        <span>Ask the AI to generate unit tests (including failure cases) before using the code.</span>
+                    </li>
+                    <li>
+                        <strong>Review Logic</strong>
+                        <span>Read through the code and understand what it does. Don't trust it blindly.</span>
+                    </li>
+                    <li>
+                        <strong>Test in Isolation</strong>
+                        <span>Run the code in a test environment with various inputs, including edge cases.</span>
+                    </li>
+                    <li>
+                        <strong>Verify Against Requirements</strong>
+                        <span>Ensure the code actually solves the problem you asked it to solve.</span>
+                    </li>
+                    <li>
+                        <strong>Check for Security Issues</strong>
+                        <span>Use the "Adversary" prompt or security scanning tools.</span>
+                    </li>
+                    </ul>
+                </div>
+        </section>
+
+        <!-- Section 5: Frontend Engineering Standards -->
+        <section id="frontend" class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div class="section-title">
+                    <h2>Frontend Engineering Standards</h2>
+                    <p>Browser fundamentals, React mastery, and performance optimization</p>
+            </div>
+        </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-tools"></i> Browser Developer Tools & Debugging</h3>
+                <p>Proficiency with browser developer tools is mandatory. You must be able to:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Debug JavaScript</strong>
+                        <span>Set breakpoints, inspect call stacks, evaluate expressions, step through async code.</span>
+                    </li>
+                    <li>
+                        <strong>Inspect Network Requests</strong>
+                        <span>Analyze request/response headers, payloads, timing, and identify bottlenecks.</span>
+                    </li>
+                    <li>
+                        <strong>Profile Performance</strong>
+                        <span>Use Performance tab to identify slow functions, memory leaks, and rendering issues.</span>
+                    </li>
+                    <li>
+                        <strong>Debug CSS</strong>
+                        <span>Inspect computed styles, test media queries, identify layout issues, use flexbox/grid inspectors.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fab fa-css3-alt"></i> CSS Fundamentals</h3>
+                <p>Deep understanding of CSS layout behavior is required:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Layout Models</strong>
+                        <span>Block, inline, flexbox, grid, positioning (static, relative, absolute, fixed, sticky).</span>
+                    </li>
+                    <li>
+                        <strong>Box Model</strong>
+                        <span>Content, padding, border, margin. How box-sizing affects calculations.</span>
+                    </li>
+                    <li>
+                        <strong>Specificity & Cascade</strong>
+                        <span>How CSS rules are applied, specificity calculation, !important usage (avoid when possible).</span>
+                    </li>
+                    <li>
+                        <strong>Responsive Design</strong>
+                        <span>Media queries, viewport units, relative units (em, rem, %), mobile-first approach.</span>
+                    </li>
+                    </ul>
+                </div>
+
+            <div class="content-block">
+                <h3><i class="fab fa-js"></i> JavaScript Fundamentals</h3>
+                <p>Master these core concepts before relying on frameworks:</p>
+
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Asynchronous Programming</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li><strong>Promises:</strong> Creation, chaining, error handling, Promise.all/race</li>
+                            <li><strong>Async/Await:</strong> Proper error handling, sequential vs parallel execution</li>
+                            <li><strong>Event Loop:</strong> How JavaScript handles concurrency, microtasks vs macrotasks</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Core Concepts</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li><strong>Hoisting:</strong> var, let, const behavior, function vs variable hoisting</li>
+                            <li><strong>Closures:</strong> How functions capture variables, common use cases</li>
+                            <li><strong>this Binding:</strong> How 'this' works in different contexts (global, object, arrow functions)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-globe"></i> HTTP & Web Standards</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>HTTP Status Codes</strong>
+                        <span>2xx (success), 3xx (redirect), 4xx (client error), 5xx (server error). Know when to use each.</span>
+                    </li>
+                    <li>
+                        <strong>Request Lifecycle</strong>
+                        <span>DNS lookup → TCP connection → TLS handshake → HTTP request → response parsing.</span>
+                    </li>
+                    <li>
+                        <strong>CORS Behavior</strong>
+                        <span>Same-origin policy, preflight requests, credentials, CORS headers (Access-Control-Allow-Origin, etc.).</span>
+                    </li>
+                    <li>
+                        <strong>Browser Storage</strong>
+                        <span>Cookies (HTTP-only, secure flags), localStorage (persistent, same-origin), sessionStorage (tab-scoped), IndexedDB (structured data).</span>
+                    </li>
+                </ul>
+    </div>
+
+            <div class="content-block">
+                <h3><i class="fab fa-react"></i> React & React Native Fundamentals</h3>
+                <p>Deep understanding of React's rendering and state management:</p>
+
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Component Lifecycle & Rendering</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li><strong>Component Lifecycle:</strong> Mount, update, unmount phases (class components and hooks equivalents)</li>
+                            <li><strong>Re-renders:</strong> When and why components re-render, how to identify unnecessary re-renders</li>
+                            <li><strong>Memoization:</strong> useMemo for expensive calculations, useCallback for function references</li>
+                            <li><strong>Keys:</strong> Why keys matter in lists, how they affect reconciliation</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>State Management</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li><strong>useState:</strong> When to use, batching updates, functional updates</li>
+                            <li><strong>useEffect:</strong> Dependencies array, cleanup functions, avoiding infinite loops</li>
+                            <li><strong>Context:</strong> When to use, performance implications, avoiding prop drilling</li>
+                            <li><strong>Complex State:</strong> useReducer, state machines, external state libraries (Zustand, Redux)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4><i class="fas fa-question-circle"></i> Critical Understanding</h4>
+                    <p>You must be able to <strong>explain why a component re-renders</strong> and <strong>how memoization (useCallback, useMemo) affects performance</strong>. 
+                    If you can't explain it, you shouldn't use it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Backend, Data & Systems Engineering -->
+        <section id="backend" class="section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <div class="section-title">
+                    <h2>Backend, Data & Systems Engineering</h2>
+                    <p>Database design, async processing, and failure-aware architecture</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-database"></i> SQL Fundamentals</h3>
+                <p>Strong SQL knowledge is required for relational database work:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Table Design</strong>
+                        <span>Normalization (1NF, 2NF, 3NF), denormalization trade-offs, primary/foreign keys, constraints.</span>
+                    </li>
+                    <li>
+                        <strong>Indexing</strong>
+                        <span>When to index, composite indexes, covering indexes, index maintenance overhead.</span>
+                    </li>
+                    <li>
+                        <strong>Query Optimization</strong>
+                        <span>EXPLAIN plans, identifying slow queries, avoiding N+1 problems, using JOINs efficiently.</span>
+                    </li>
+                    <li>
+                        <strong>Transactions</strong>
+                        <span>ACID properties, isolation levels, deadlocks, rollback strategies.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-exchange-alt"></i> SQL vs NoSQL: Understanding Trade-offs</h3>
+                <div class="two-column">
+                    <div class="column">
+                        <h4><i class="fas fa-table"></i> SQL (PostgreSQL, MySQL)</h4>
+                        <p style="margin-bottom: 15px;"><strong>Use when:</strong></p>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Complex queries with joins and aggregations</li>
+                            <li>ACID transactions are critical</li>
+                            <li>Structured, relational data</li>
+                            <li>Data consistency is paramount</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4><i class="fas fa-layer-group"></i> NoSQL (MongoDB, DynamoDB)</h4>
+                        <p style="margin-bottom: 15px;"><strong>Use when:</strong></p>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>High write throughput requirements</li>
+                            <li>Horizontal scaling is needed</li>
+                            <li>Schema flexibility is important</li>
+                            <li>Simple key-value or document access patterns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-leaf"></i> MongoDB Fundamentals</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Document Model</strong>
+                        <span>BSON structure, embedded vs referenced documents, schema design patterns.</span>
+                    </li>
+                    <li>
+                        <strong>Querying</strong>
+                        <span>Query operators, aggregation pipeline, indexing strategies, text search.</span>
+                    </li>
+                    <li>
+                        <strong>Replication & Sharding</strong>
+                        <span>Replica sets for high availability, sharding for horizontal scaling.</span>
+                    </li>
+                    <li>
+                        <strong>Transactions</strong>
+                        <span>Multi-document transactions (MongoDB 4.0+), when to use, performance implications.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-memory"></i> Redis Fundamentals</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Caching Strategies</strong>
+                        <span>Cache-aside, write-through, write-behind patterns, TTL management, cache invalidation.</span>
+                    </li>
+                    <li>
+                        <strong>Data Structures</strong>
+                        <span>Strings, hashes, lists, sets, sorted sets, when to use each.</span>
+                    </li>
+                    <li>
+                        <strong>Consistency Implications</strong>
+                        <span>Cache invalidation challenges, eventual consistency, cache stampede prevention.</span>
+                    </li>
+                    <li>
+                        <strong>Use Cases</strong>
+                        <span>Session storage, rate limiting, real-time leaderboards, pub/sub messaging.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-stream"></i> Asynchronous Processing</h3>
+                <p>Understanding event-driven systems and message queues:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Kafka</strong>
+                        <span>Topics, partitions, consumer groups, offset management, exactly-once semantics.</span>
+                    </li>
+                    <li>
+                        <strong>Event-Driven Systems</strong>
+                        <span>Event sourcing, CQRS, event ordering, idempotency, event replay.</span>
+                    </li>
+                    <li>
+                        <strong>AWS SQS</strong>
+                        <span>Standard vs FIFO queues, visibility timeout, dead-letter queues, long polling.</span>
+                    </li>
+                    <li>
+                        <strong>Message Patterns</strong>
+                        <span>Pub/sub, request/reply, fan-out, message routing, error handling.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-code"></i> Async & Concurrency Models</h3>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Node.js</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Event loop, non-blocking I/O</li>
+                            <li>Worker threads for CPU-intensive tasks</li>
+                            <li>Async/await, Promises, callbacks</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Python</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>GIL limitations, asyncio for I/O</li>
+                            <li>multiprocessing for CPU-bound tasks</li>
+                            <li>Threading vs async vs multiprocessing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="two-column" style="margin-top: 20px;">
+                    <div class="column">
+                        <h4>Go</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Goroutines, channels, select statements</li>
+                            <li>Context for cancellation and timeouts</li>
+                            <li>Concurrency patterns (worker pools, pipelines)</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Rust</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Ownership, borrowing, lifetimes</li>
+                            <li>async/await with Tokio</li>
+                            <li>Fearless concurrency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-shield-alt"></i> Design Systems with Failure in Mind</h3>
+                <p>Every system will fail. Design for graceful degradation and recovery:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Retries</strong>
+                        <span>Exponential backoff, jitter, maximum retry limits, circuit breakers.</span>
+                    </li>
+                    <li>
+                        <strong>Idempotency</strong>
+                        <span>Design operations to be safely retryable, use idempotency keys for critical operations.</span>
+                    </li>
+                    <li>
+                        <strong>Partial Failures</strong>
+                        <span>Handle cases where some operations succeed and others fail, implement compensation logic.</span>
+                    </li>
+                    <li>
+                        <strong>Rollback Strategies</strong>
+                        <span>Database transactions, saga pattern, compensating transactions, feature flags for gradual rollback.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 7: Cloud, DevOps & Delivery Standards -->
+        <section id="devops" class="section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <div class="section-title">
+                    <h2>Cloud, DevOps & Delivery Standards</h2>
+                    <p>Infrastructure, CI/CD, and production operations</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-network-wired"></i> Networking Fundamentals</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>DNS Records</strong>
+                        <span>A, AAAA, CNAME, MX, TXT records. How DNS resolution works, TTL, caching.</span>
+                    </li>
+                    <li>
+                        <strong>Request Flow</strong>
+                        <span>DNS lookup → Load Balancer → Service → Database. Understanding each layer's role.</span>
+                    </li>
+                    <li>
+                        <strong>Load Balancing</strong>
+                        <span>Round-robin, least connections, health checks, session affinity, SSL termination.</span>
+                    </li>
+                    <li>
+                        <strong>Network Security</strong>
+                        <span>VPCs, subnets, security groups, NACLs, VPNs, private endpoints.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-bug"></i> Debugging in Production</h3>
+                <p>Ability to debug backend services in both development and production:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Logging</strong>
+                        <span>Structured logging (JSON), log levels, correlation IDs, centralized log aggregation (CloudWatch, ELK).</span>
+                    </li>
+                    <li>
+                        <strong>Monitoring</strong>
+                        <span>Metrics (CPU, memory, request rate, error rate), dashboards, alerting thresholds.</span>
+                    </li>
+                    <li>
+                        <strong>Tracing</strong>
+                        <span>Distributed tracing (X-Ray, Jaeger), request flow visualization, performance bottlenecks.</span>
+                    </li>
+                    <li>
+                        <strong>Error Tracking</strong>
+                        <span>Error aggregation (Sentry, Rollbar), stack traces, user context, error frequency analysis.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-vial"></i> Test-Driven Development (TDD)</h3>
+                <p>Understanding TDD principles and appropriate test selection:</p>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Unit Tests</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Fast, isolated, test single functions</li>
+                            <li>Mock external dependencies</li>
+                            <li>High coverage of business logic</li>
+                            <li>Run on every code change</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>End-to-End Tests</h4>
+                        <ul class="guideline-list" style="margin-top: 15px;">
+                            <li>Slow, test complete workflows</li>
+                            <li>Use real services (or close mocks)</li>
+                            <li>Test critical user paths</li>
+                            <li>Run before deployment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <h4><i class="fas fa-info-circle"></i> Clear Distinction</h4>
+                    <p>You must understand the <strong>clear distinction between unit tests and end-to-end tests</strong>. 
+                    Use the right tool for the right job. Don't write slow unit tests or fast E2E tests.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fab fa-github"></i> GitHub Actions for CI/CD</h3>
+                <p>Understanding and usage of GitHub Actions for continuous integration and deployment:</p>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Workflow Structure</strong>
+                        <span>Triggers (push, PR, schedule), jobs, steps, matrix strategies, conditional execution.</span>
+                    </li>
+                    <li>
+                        <strong>Secrets Management</strong>
+                        <span>GitHub Secrets, environment secrets, secure secret handling, never log secrets.</span>
+                    </li>
+                    <li>
+                        <strong>Artifacts & Caching</strong>
+                        <span>Build artifacts, dependency caching, Docker layer caching, performance optimization.</span>
+                    </li>
+                    <li>
+                        <strong>Deployment Strategies</strong>
+                        <span>Blue-green, canary, rolling deployments, feature flags, automated rollback.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-rocket"></i> Deployment Processes</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Environment Separation</strong>
+                        <span>Development, staging, production environments. Data isolation, configuration management.</span>
+                    </li>
+                    <li>
+                        <strong>Rollback Strategies</strong>
+                        <span>Automated rollback triggers, database migration rollbacks, feature flag toggles, blue-green deployments.</span>
+                    </li>
+                    <li>
+                        <strong>Monitoring</strong>
+                        <span>Health checks, metrics dashboards, alerting, log aggregation, error tracking, performance monitoring, uptime tracking.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 8: Communication, Security & Professional Conduct -->
+        <section id="conduct" class="section">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <div class="section-title">
+                    <h2>Communication, Security & Professional Conduct</h2>
+                    <p>Team communication, security practices, and professional standards</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-comments"></i> Communication Standards</h3>
+                <div class="highlight-box danger">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Mandatory Channel Monitoring</h4>
+                    <p><strong>Reading and acknowledging messages in mandatory channels (scrum, general) is required.</strong> 
+                    Missed communication is not an acceptable reason for delivery or coordination failures.</p>
+                </div>
+
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Active Participation</strong>
+                        <span>Respond to direct mentions within reasonable timeframes, acknowledge important announcements, participate in team discussions.</span>
+                    </li>
+                    <li>
+                        <strong>Status Updates</strong>
+                        <span>Provide regular updates on work progress, blockers, and completion status in designated channels.</span>
+                    </li>
+                    <li>
+                        <strong>Documentation</strong>
+                        <span>Document decisions, architecture changes, and important discussions. Don't rely solely on chat history.</span>
+                    </li>
+                    <li>
+                        <strong>Escalation</strong>
+                        <span>Know when to escalate issues. Don't struggle in silence when blocked or facing critical problems.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-shield-alt"></i> Security & Data Protection</h3>
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Secure Backup Practices</strong>
+                        <span>Work must be backed up securely, including environment configurations and secrets. Use version control for all code, never store secrets in code repositories.</span>
+                    </li>
+                    <li>
+                        <strong>Secret Management</strong>
+                        <span>Use secure secret management tools (AWS Secrets Manager, HashiCorp Vault, environment variables). Never commit secrets, API keys, or credentials to version control.</span>
+                    </li>
+                    <li>
+                        <strong>Access Control</strong>
+                        <span>Follow principle of least privilege. Only request access to resources you need. Regularly review and revoke unnecessary access.</span>
+                    </li>
+                    <li>
+                        <strong>Data Handling</strong>
+                        <span>Understand data classification (public, internal, confidential, restricted). Handle sensitive data according to company policies and regulatory requirements (HIPAA, PCI-DSS, GDPR).</span>
+                    </li>
+                    <li>
+                        <strong>Security Updates</strong>
+                        <span>Keep dependencies updated, patch known vulnerabilities promptly, use security scanning tools in CI/CD pipelines.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-briefcase"></i> Professional Conduct</h3>
+                <div class="highlight-box danger">
+                    <h4><i class="fas fa-ban"></i> Company Resources</h4>
+                    <p><strong>Company laptops, licensed software, and paid tools are strictly for professional use only.</strong> 
+                    Personal projects, unauthorized software, or misuse of company resources is prohibited.</p>
+                </div>
+
+                <ul class="guideline-list">
+                    <li>
+                        <strong>Code of Conduct</strong>
+                        <span>Treat all team members with respect, provide constructive feedback, maintain professional communication in all channels.</span>
+                    </li>
+                    <li>
+                        <strong>Time Management</strong>
+                        <span>Be punctual for meetings, respect deadlines, communicate proactively if timelines need adjustment.</span>
+                    </li>
+                    <li>
+                        <strong>Continuous Learning</strong>
+                        <span>Stay updated with industry best practices, share knowledge with the team, contribute to documentation and knowledge base.</span>
+                    </li>
+                    <li>
+                        <strong>Accountability</strong>
+                        <span>Take ownership of mistakes, learn from failures, contribute to post-mortems and process improvements.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="highlight-box success" style="margin-top: 30px;">
+                <h4><i class="fas fa-book"></i> Document Purpose</h4>
+                <p>This document defines the <strong>minimum bar for engineering at EchorTech</strong>. It is referenced during:</p>
+                <ul style="margin-top: 15px; margin-left: 20px;">
+                    <li><strong>Onboarding:</strong> New engineers must understand and commit to these standards</li>
+                    <li><strong>Day-to-Day Development:</strong> Use as a reference for code reviews, architecture decisions, and best practices</li>
+                    <li><strong>Quarterly Check-ins:</strong> Evaluate adherence to standards and identify areas for growth</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="container">
+            <p><i class="fas fa-code"></i> EchorTech Developer Guidelines & Engineering Standards | Version 1.0</p>
+            <p style="margin-top: 10px; opacity: 0.7; font-size: 0.9rem;">
+                This document serves as the authoritative onboarding and reference guide for all engineers at EchorTech.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update reading progress
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+            document.getElementById('readingProgress').style.width = `${Math.min(progress, 100)}%`;
+
+            // Show/hide back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (scrollTop > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
