@@ -267,6 +267,55 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
+            align-items: center;
+        }
+
+        /* Hamburger Menu Button */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            gap: 6px;
+            z-index: 101;
+            position: relative;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        .hamburger:hover span {
+            background: var(--primary);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+            background: var(--primary);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+            background: var(--primary);
+        }
+
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         nav a {
@@ -279,6 +328,7 @@
             font-size: 0.95rem;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
         }
 
         nav a::before {
@@ -777,6 +827,10 @@
                 font-size: 2.5rem;
             }
 
+            header .subtitle {
+                font-size: 1.1rem;
+            }
+
             .section {
                 padding: 25px;
             }
@@ -789,13 +843,76 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Mobile Navigation */
+            .hamburger {
+                display: flex;
+            }
+
             nav .container {
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                padding: 15px 20px;
+            }
+
+            nav .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                max-width: 85vw;
+                height: 100vh;
+                background: white;
                 flex-direction: column;
                 align-items: stretch;
+                padding: 80px 20px 20px;
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 100;
+                gap: 8px;
+                overflow-y: auto;
+            }
+
+            nav .nav-links.active {
+                left: 0;
             }
 
             nav a {
-                text-align: center;
+                text-align: left;
+                padding: 14px 18px;
+                border-radius: 10px;
+                width: 100%;
+                display: block;
+            }
+
+            /* Overlay when menu is open */
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 99;
+                backdrop-filter: blur(4px);
+            }
+
+            .nav-overlay.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            nav .nav-links {
+                width: 100%;
             }
         }
 
@@ -824,16 +941,24 @@
         </div>
     </header>
 
+    <div class="nav-overlay" id="navOverlay"></div>
     <nav>
         <div class="container">
-            <a href="#philosophy">Philosophy</a>
-            <a href="#ownership">Ownership</a>
-            <a href="#testing">Testing</a>
-            <a href="#llm">LLM Usage</a>
-            <a href="#frontend">Frontend</a>
-            <a href="#backend">Backend</a>
-            <a href="#devops">DevOps</a>
-            <a href="#conduct">Conduct</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#philosophy">Philosophy</a>
+                <a href="#ownership">Ownership</a>
+                <a href="#testing">Testing</a>
+                <a href="#llm">LLM Usage</a>
+                <a href="#frontend">Frontend</a>
+                <a href="#backend">Backend</a>
+                <a href="#devops">DevOps</a>
+                <a href="#conduct">Conduct</a>
+            </div>
         </div>
     </nav>
 
@@ -1841,6 +1966,30 @@ Act as a security adversary and tell me:</span>
         const sections = document.querySelectorAll('.section');
         sections.forEach(section => {
             observer.observe(section);
+        });
+
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        navOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a nav link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
         });
 
         // Smooth scrolling for navigation links
