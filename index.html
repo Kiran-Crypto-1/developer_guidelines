@@ -916,6 +916,159 @@
             }
         }
 
+        /* Workflow Styles */
+        .workflow-container {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .workflow-step {
+            position: relative;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 30px;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+            z-index: 2;
+        }
+
+        .workflow-step::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 60px;
+            width: 2px;
+            height: calc(100% + 30px);
+            background: var(--gradient-primary);
+            opacity: 0.3;
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        .workflow-step-number {
+            position: absolute;
+            left: -15px;
+            top: 30px;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+            z-index: 3;
+        }
+
+        .workflow-step h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            padding-left: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .workflow-step h3 i {
+            margin-right: 10px;
+        }
+
+        .workflow-step-content {
+            padding-left: 25px;
+        }
+
+        .workflow-checklist {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .workflow-checklist h4 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .workflow-checklist ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .workflow-checklist li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .workflow-checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .workflow-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.4);
+        }
+
+        .workflow-gate {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .workflow-gate h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
         /* Print Styles */
         @media print {
             nav, footer {
@@ -950,6 +1103,7 @@
                 <span></span>
             </button>
             <div class="nav-links" id="navLinks">
+                <a href="#workflow">Workflow</a>
                 <a href="#philosophy">Philosophy</a>
                 <a href="#ownership">Ownership</a>
                 <a href="#testing">Testing</a>
@@ -963,6 +1117,338 @@
     </nav>
 
     <main id="main">
+        <!-- Section 0: Feature Development Workflow -->
+        <section id="workflow" class="section">
+            <div class="section-header">
+                <div class="section-number">0</div>
+                <div class="section-title">
+                    <h2>Feature Development Workflow</h2>
+                    <p>Complete step-by-step process from requirements to production delivery</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 25px;">
+                    This workflow provides the <strong>sequential order of activities</strong> you must follow when developing any feature. 
+                    Each step links to detailed guidelines in the sections below. Follow this flow to ensure nothing is missed.
+                </p>
+
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-route"></i> Workflow Overview</h4>
+                    <p>This workflow ensures you transform from a "ticket closer" to a "domain-aware engineer" by following a logical sequence: 
+                    <strong>Understand → Plan → Build → Test → Deploy → Verify</strong>. Each step has checkpoints that must be met before proceeding.</p>
+                </div>
+
+                <div class="workflow-container">
+                    <!-- Step 1 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">1</div>
+                        <h3><i class="fas fa-clipboard-check"></i> Requirements & Context Check</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> Immediately upon receiving a ticket/requirement</p>
+                            <p><strong>What to do:</strong> Complete the mandatory Context Check before writing any code.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Context Check Checklist</h4>
+                                <ul>
+                                    <li>Identify the domain (Fintech, Healthcare, Logistics, etc.)</li>
+                                    <li>Define the currency of trust (Precision, Privacy, Speed, etc.)</li>
+                                    <li>Understand the stakes (What breaks if this fails?)</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>You can clearly articulate: (1) The domain, (2) The currency of trust, and (3) The stakes. 
+                                If you can't answer these, ask questions or seek clarification.</p>
+                            </div>
+
+                            <a href="#philosophy" class="workflow-link">→ See Section 1: Context Check Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">2</div>
+                        <h3><i class="fas fa-user-shield"></i> Definition of Ready</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> After Context Check, before design/implementation</p>
+                            <p><strong>What to do:</strong> Answer the three ownership questions.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Definition of Ready Checklist</h4>
+                                <ul>
+                                    <li>Who uses this feature? (End-user persona identified)</li>
+                                    <li>What breaks if this fails? (Failure modes understood)</li>
+                                    <li>How will I verify it works? (Verification strategy defined)</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>You can answer all three questions. If you don't know who uses it or what breaks, 
+                                you're not ready to code. Clarify requirements first.</p>
+                            </div>
+
+                            <a href="#ownership" class="workflow-link">→ See Section 2: Ownership Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">3</div>
+                        <h3><i class="fas fa-drafting-compass"></i> Design & Planning</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> After Definition of Ready, before implementation</p>
+                            <p><strong>What to do:</strong> Design the solution considering failure modes and error handling.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Design Checklist</h4>
+                                <ul>
+                                    <li>Clarify requirements and edge cases</li>
+                                    <li>Identify ambiguity and seek clarification</li>
+                                    <li>Consider failure modes and error handling</li>
+                                    <li>Plan for scalability and performance</li>
+                                    <li>Design monitoring and logging strategy</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>You have a clear design that addresses: (1) How it works, (2) How it fails, (3) How to debug it. 
+                                Document complex logic and business rules.</p>
+                            </div>
+
+                            <a href="#ownership" class="workflow-link">→ See Section 2: Design Phase Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">4</div>
+                        <h3><i class="fas fa-code"></i> Implementation</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> After design is complete</p>
+                            <p><strong>What to do:</strong> Write code following engineering standards.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Implementation Checklist</h4>
+                                <ul>
+                                    <li>Write code you can explain to a junior developer</li>
+                                    <li>Follow frontend/backend standards (Sections 5 & 6)</li>
+                                    <li>Document complex logic and business rules</li>
+                                    <li>Consider performance and scalability</li>
+                                    <li>Handle errors gracefully</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>Code is written, documented, and you can explain what it does, why it exists, 
+                                how it can fail, and how it can be debugged.</p>
+                            </div>
+
+                            <a href="#frontend" class="workflow-link">→ See Section 5: Frontend Standards</a>
+                            <a href="#backend" class="workflow-link" style="margin-left: 10px;">→ See Section 6: Backend Standards</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">5</div>
+                        <h3><i class="fas fa-vial"></i> Testing</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> During and after implementation</p>
+                            <p><strong>What to do:</strong> Write tests based on the testing pyramid and failure modes.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Testing Checklist</h4>
+                                <ul>
+                                    <li>Write unit tests for business logic (target: &lt; 100ms per test)</li>
+                                    <li>Write integration tests for API/database interactions (target: &lt; 5s per test)</li>
+                                    <li>Write E2E tests for critical user flows (target: &lt; 30s per test)</li>
+                                    <li>Test failure modes, not just happy paths</li>
+                                    <li>Test edge cases and boundary conditions</li>
+                                    <li>Verify error messages are clear and helpful</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>All tests pass, failure modes are tested, and edge cases are handled. 
+                                Code is considered incomplete if failure modes haven't been evaluated.</p>
+                            </div>
+
+                            <a href="#testing" class="workflow-link">→ See Section 3: Testing Standards</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">6</div>
+                        <h3><i class="fas fa-user-secret"></i> Self-Audit & Code Review</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> Before pushing to code review</p>
+                            <p><strong>What to do:</strong> Use the "Adversary" prompt to self-audit your code.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Self-Audit Checklist</h4>
+                                <ul>
+                                    <li>Run security audit using "Adversary" prompt (Section 4)</li>
+                                    <li>Check for performance bottlenecks</li>
+                                    <li>Verify error handling gaps</li>
+                                    <li>Review for common mistakes (see relevant sections)</li>
+                                    <li>Ensure no secrets or sensitive data in code</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>You've self-audited your code and addressed security/quality issues. 
+                                Don't rely solely on code review to catch problems.</p>
+                            </div>
+
+                            <a href="#llm" class="workflow-link">→ See Section 4: LLM Adversary Prompts</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">7</div>
+                        <h3><i class="fas fa-clipboard-list"></i> Pre-Deployment Checklist</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> After code review approval, before deployment</p>
+                            <p><strong>What to do:</strong> Complete the ownership checklist.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Pre-Deployment Checklist</h4>
+                                <ul>
+                                    <li>All tests pass (unit, integration, E2E)</li>
+                                    <li>Code review approved</li>
+                                    <li>Monitoring and logging configured</li>
+                                    <li>Rollback strategy defined</li>
+                                    <li>Deployment plan documented</li>
+                                    <li>You know how to verify it works in production</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>All checklist items are complete. You own the deployment - don't "throw it over the wall" 
+                                for someone else to handle.</p>
+                            </div>
+
+                            <a href="#ownership" class="workflow-link">→ See Section 2: Ownership Checklist</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 8 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">8</div>
+                        <h3><i class="fas fa-rocket"></i> Deployment</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> After pre-deployment checklist is complete</p>
+                            <p><strong>What to do:</strong> Deploy and verify in production yourself.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Deployment Checklist</h4>
+                                <ul>
+                                    <li>Deploy to staging first (if applicable)</li>
+                                    <li>Verify deployment in staging</li>
+                                    <li>Deploy to production</li>
+                                    <li>Monitor deployment metrics</li>
+                                    <li>Be available for immediate rollback if needed</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT proceed until...</h4>
+                                <p>Deployment is successful and you've verified basic functionality. 
+                                Monitor for at least 15-30 minutes post-deployment.</p>
+                            </div>
+
+                            <a href="#devops" class="workflow-link">→ See Section 7: DevOps & Deployment</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 9 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">9</div>
+                        <h3><i class="fas fa-check-circle"></i> Post-Deployment Verification</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> Immediately after deployment</p>
+                            <p><strong>What to do:</strong> Verify the feature works as expected in production.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Verification Checklist</h4>
+                                <ul>
+                                    <li>Test the feature in production (as defined in Step 2)</li>
+                                    <li>Check monitoring dashboards for errors</li>
+                                    <li>Review logs for any anomalies</li>
+                                    <li>Verify performance metrics meet targets</li>
+                                    <li>Confirm user-facing functionality works</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Do NOT mark complete until...</h4>
+                                <p>You've verified the feature works in production using your verification strategy from Step 2. 
+                                If verification fails, rollback immediately.</p>
+                            </div>
+
+                            <a href="#ownership" class="workflow-link">→ See Section 2: Ownership & Verification</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 10 -->
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">10</div>
+                        <h3><i class="fas fa-chart-line"></i> Monitoring & Iteration</h3>
+                        <div class="workflow-step-content">
+                            <p><strong>When:</strong> Ongoing after deployment</p>
+                            <p><strong>What to do:</strong> Monitor metrics and iterate based on feedback.</p>
+                            
+                            <div class="workflow-checklist">
+                                <h4>✓ Monitoring Checklist</h4>
+                                <ul>
+                                    <li>Monitor metrics for 24-48 hours post-deployment</li>
+                                    <li>Track error rates and performance metrics</li>
+                                    <li>Review user feedback and analytics</li>
+                                    <li>Address any issues promptly</li>
+                                    <li>Document learnings for future features</li>
+                                </ul>
+                            </div>
+
+                            <div class="workflow-gate">
+                                <h4>🚦 Gate: Feature is complete when...</h4>
+                                <p>Metrics are stable, no critical issues, and you've documented any learnings. 
+                                Remember: You own this feature end-to-end, including post-deployment monitoring.</p>
+                            </div>
+
+                            <a href="#devops" class="workflow-link">→ See Section 7: Monitoring & Operations</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h4><i class="fas fa-lightbulb"></i> Quick Reference: Workflow Summary</h4>
+                    <p><strong>Remember this sequence:</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Context Check</strong> → Understand domain, trust, stakes</li>
+                        <li><strong>Definition of Ready</strong> → Answer: Who, What breaks, How to verify</li>
+                        <li><strong>Design</strong> → Plan solution, failure modes, monitoring</li>
+                        <li><strong>Implement</strong> → Write code following standards</li>
+                        <li><strong>Test</strong> → Unit, integration, E2E, failure modes</li>
+                        <li><strong>Self-Audit</strong> → Security and quality check</li>
+                        <li><strong>Pre-Deploy</strong> → Complete ownership checklist</li>
+                        <li><strong>Deploy</strong> → Deploy and monitor yourself</li>
+                        <li><strong>Verify</strong> → Confirm it works in production</li>
+                        <li><strong>Monitor</strong> → Track metrics and iterate</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
         <!-- Section 1: Engineering Philosophy -->
         <section id="philosophy" class="section">
             <div class="section-header">
