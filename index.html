@@ -530,21 +530,22 @@
         }
 
         .guideline-list li::before {
-            content: '✓';
+            content: '☐';
             position: absolute;
             left: 20px;
             top: 18px;
             color: var(--primary);
-            font-weight: bold;
+            font-weight: normal;
             font-size: 1.1rem;
             width: 28px;
             height: 28px;
-            background: var(--accent);
-            border-radius: 50%;
+            background: transparent;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: none;
         }
 
         .guideline-list li:hover {
@@ -792,7 +793,7 @@
         }
 
         .badge.primary {
-            background: #e8f5e9;
+            background: #ffffff;
             color: var(--primary);
         }
 
@@ -1057,11 +1058,19 @@
         }
 
         .workflow-checklist h4::before {
-            content: '✓';
-            color: var(--accent);
+            content: '☐';
+            color: var(--primary);
             margin-right: 8px;
-            font-weight: bold;
+            font-weight: normal;
             font-size: 1.2rem;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
+            text-align: center;
+            line-height: 16px;
+            vertical-align: middle;
         }
 
         .workflow-checklist ul {
@@ -1713,8 +1722,8 @@
                 <h3><i class="fas fa-layer-group"></i> The Testing Pyramid</h3>
                 <p>Apply appropriate testing based on context and risk. Use this decision framework:</p>
 
-                <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: var(--accent);">
-                    <h3 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Testing Decision Framework</h3>
+                <div class="context-check" style="margin: 25px 0;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Testing Decision Framework</h3>
                     <div class="check-item" style="background: white;">
                         <strong>Write Unit Tests When:</strong>
                         <ul style="margin-top: 10px; margin-left: 20px;">
@@ -2123,8 +2132,8 @@ Act as a security adversary and tell me:</span>
                     </ul>
                 </div>
 
-                <div class="context-check" style="margin-top: 25px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: var(--warning);">
-                    <h3 style="color: #856404; margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Why is my component re-rendering?</h3>
+                <div class="context-check" style="margin-top: 25px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Why is my component re-rendering?</h3>
                     <div class="check-item" style="background: white;">
                         <strong>Check these in order:</strong>
                         <ol style="margin-top: 10px; margin-left: 20px;">
@@ -2185,7 +2194,7 @@ Act as a security adversary and tell me:</span>
                 <h3><i class="fas fa-exchange-alt"></i> SQL vs NoSQL: Understanding Trade-offs</h3>
                 <p><strong>Decision Framework:</strong> Use this criteria to choose between SQL and NoSQL databases.</p>
                 
-                <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: var(--primary);">
+                <div class="context-check" style="margin: 25px 0;">
                     <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> SQL vs NoSQL Decision Tree</h3>
                     <div class="check-item" style="background: white;">
                         <strong>Choose SQL (PostgreSQL, MySQL) when:</strong>
@@ -2407,8 +2416,8 @@ Act as a security adversary and tell me:</span>
                 </ul>
             </div>
 
-            <div class="context-check" style="margin: 25px 0; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: var(--danger);">
-                <h3 style="color: var(--danger); margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Common Production Issues</h3>
+            <div class="context-check" style="margin: 25px 0;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-tools"></i> Troubleshooting: Common Production Issues</h3>
                 <div class="check-item" style="background: white;">
                     <strong>Lambda Timeout:</strong>
                     <ul style="margin-top: 10px; margin-left: 20px;">
