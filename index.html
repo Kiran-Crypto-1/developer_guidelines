@@ -23,7 +23,7 @@
             --secondary: #24292e;
             --warning: #ff9800;
             --danger: #dc3545;
-            --success: #28a745;
+            --success: #e1ff4c;
             
             /* Background Colors - Matching EchorTech */
             --bg-color: #f3f3eb;
@@ -996,27 +996,13 @@
         }
 
         .workflow-step::before {
-            content: '';
-            position: absolute;
-            left: -15px;
-            top: 30px;
-            width: 30px;
-            height: 30px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(225, 255, 76, 0.4);
-            z-index: 2;
+            display: none;
         }
 
         .workflow-step::after {
             content: '';
             position: absolute;
-            left: 0;
+            left: -2px;
             top: 60px;
             width: 2px;
             height: calc(100% + 30px);
@@ -1034,12 +1020,12 @@
             top: 30px;
             width: 30px;
             height: 30px;
-            background: var(--accent);
+            background: var(--accent) !important;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
+            color: var(--primary) !important;
             font-weight: bold;
             font-size: 0.9rem;
             box-shadow: 0 4px 12px rgba(225, 255, 76, 0.4);
@@ -1058,6 +1044,7 @@
 
         .workflow-step h3 i {
             margin-right: 10px;
+            color: var(--accent);
         }
 
         .workflow-step-content {
@@ -1087,6 +1074,14 @@
             margin-bottom: 12px;
             font-size: 1.1rem;
             font-weight: 700;
+        }
+
+        .workflow-checklist h4::before {
+            content: '✓';
+            color: var(--accent);
+            margin-right: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .workflow-checklist ul {
@@ -1229,7 +1224,7 @@
                             <p><strong>What to do:</strong> Complete the mandatory Context Check before writing any code.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Context Check Checklist</h4>
+                                <h4>Context Check Checklist</h4>
                                 <ul>
                                     <li>Identify the domain (Fintech, Healthcare, Logistics, etc.)</li>
                                     <li>Define the currency of trust (Precision, Privacy, Speed, etc.)</li>
@@ -1256,7 +1251,7 @@
                             <p><strong>What to do:</strong> Answer the three ownership questions.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Definition of Ready Checklist</h4>
+                                <h4>Definition of Ready Checklist</h4>
                                 <ul>
                                     <li>Who uses this feature? (End-user persona identified)</li>
                                     <li>What breaks if this fails? (Failure modes understood)</li>
@@ -1283,7 +1278,7 @@
                             <p><strong>What to do:</strong> Design the solution considering failure modes and error handling.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Design Checklist</h4>
+                                <h4>Design Checklist</h4>
                                 <ul>
                                     <li>Clarify requirements and edge cases</li>
                                     <li>Identify ambiguity and seek clarification</li>
@@ -1312,7 +1307,7 @@
                             <p><strong>What to do:</strong> Write code following engineering standards.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Implementation Checklist</h4>
+                                <h4>Implementation Checklist</h4>
                                 <ul>
                                     <li>Write code you can explain to a junior developer</li>
                                     <li>Follow frontend/backend standards (Sections 5 & 6)</li>
@@ -1342,7 +1337,7 @@
                             <p><strong>What to do:</strong> Write tests based on the testing pyramid and failure modes.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Testing Checklist</h4>
+                                <h4>Testing Checklist</h4>
                                 <ul>
                                     <li>Write unit tests for business logic (target: &lt; 100ms per test)</li>
                                     <li>Write integration tests for API/database interactions (target: &lt; 5s per test)</li>
@@ -1372,7 +1367,7 @@
                             <p><strong>What to do:</strong> Use the "Adversary" prompt to self-audit your code.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Self-Audit Checklist</h4>
+                                <h4>Self-Audit Checklist</h4>
                                 <ul>
                                     <li>Run security audit using "Adversary" prompt (Section 4)</li>
                                     <li>Check for performance bottlenecks</li>
@@ -1401,7 +1396,7 @@
                             <p><strong>What to do:</strong> Complete the ownership checklist.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Pre-Deployment Checklist</h4>
+                                <h4>Pre-Deployment Checklist</h4>
                                 <ul>
                                     <li>All tests pass (unit, integration, E2E)</li>
                                     <li>Code review approved</li>
@@ -1431,7 +1426,7 @@
                             <p><strong>What to do:</strong> Deploy and verify in production yourself.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Deployment Checklist</h4>
+                                <h4>Deployment Checklist</h4>
                                 <ul>
                                     <li>Deploy to staging first (if applicable)</li>
                                     <li>Verify deployment in staging</li>
@@ -1460,7 +1455,7 @@
                             <p><strong>What to do:</strong> Verify the feature works as expected in production.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Verification Checklist</h4>
+                                <h4>Verification Checklist</h4>
                                 <ul>
                                     <li>Test the feature in production (as defined in Step 2)</li>
                                     <li>Check monitoring dashboards for errors</li>
@@ -1489,7 +1484,7 @@
                             <p><strong>What to do:</strong> Monitor metrics and iterate based on feedback.</p>
                             
                             <div class="workflow-checklist">
-                                <h4>✓ Monitoring Checklist</h4>
+                                <h4>Monitoring Checklist</h4>
                                 <ul>
                                     <li>Monitor metrics for 24-48 hours post-deployment</li>
                                     <li>Track error rates and performance metrics</li>
