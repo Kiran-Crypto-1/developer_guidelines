@@ -13,31 +13,41 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <style>
         :root {
-            --primary: #2f8d46;
-            --primary-dark: #1e6b35;
-            --primary-light: #4aad66;
+            /* EchorTech Brand Colors */
+            --primary: #000000;
+            --primary-dark: #181716;
+            --primary-light: #333333;
+            --accent: #e1ff4c;
+            --accent-dark: #c9e644;
+            --accent-light: #f0ff7a;
             --secondary: #24292e;
-            --accent: #0366d6;
-            --accent-light: #1a7fff;
             --warning: #ff9800;
             --danger: #dc3545;
             --success: #28a745;
-            --bg-color: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+            
+            /* Background Colors - Matching EchorTech */
+            --bg-color: #f3f3eb;
+            --bg-gradient: linear-gradient(135deg, #f3f3eb 0%, #f8f8f0 50%, #f5f5ed 100%);
             --card-bg: #ffffff;
-            --card-hover: #fafbfc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --text-light: #94a3b8;
+            --card-hover: #fafafa;
+            
+            /* Text Colors */
+            --text-main: #181716;
+            --text-muted: #4a4a4a;
+            --text-light: #6a6a6a;
+            
+            /* Spacing & Effects */
             --border-radius: 20px;
             --border-radius-sm: 12px;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.12);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
-            --gradient-primary: linear-gradient(135deg, #2f8d46 0%, #1e6b35 100%);
-            --gradient-accent: linear-gradient(135deg, #0366d6 0%, #1a7fff 100%);
-            --gradient-header: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2f8d46 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.2);
+            
+            /* Gradients - EchorTech Style */
+            --gradient-primary: linear-gradient(135deg, #000000 0%, #181716 100%);
+            --gradient-accent: linear-gradient(135deg, #e1ff4c 0%, #c9e644 100%);
+            --gradient-header: linear-gradient(135deg, #181716 0%, #000000 50%, #1a1a1a 100%);
         }
 
         * {
@@ -76,10 +86,10 @@
             top: 0;
             left: 0;
             height: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
             z-index: 1002;
             transition: width 0.1s ease;
-            box-shadow: 0 2px 8px rgba(47, 141, 70, 0.4);
+            box-shadow: 0 2px 8px rgba(225, 255, 76, 0.5);
         }
 
         .reading-progress::after {
@@ -103,8 +113,8 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--primary);
+            color: var(--accent);
             width: 56px;
             height: 56px;
             border-radius: 50%;
@@ -115,13 +125,15 @@
             box-shadow: var(--shadow-lg);
             z-index: 1000;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
+            border: 2px solid var(--accent);
             font-size: 1.3rem;
         }
 
         .back-to-top:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 32px rgba(47, 141, 70, 0.4);
+            background: var(--accent);
+            color: var(--primary);
+            box-shadow: 0 12px 32px rgba(225, 255, 76, 0.5);
         }
 
         .back-to-top:active {
@@ -138,7 +150,7 @@
             top: -40px;
             left: 0;
             background: var(--primary);
-            color: white;
+            color: var(--accent);
             padding: 8px;
             text-decoration: none;
             z-index: 1003;
@@ -158,6 +170,10 @@
             overflow: hidden;
         }
 
+        header h1 i {
+            color: var(--accent);
+        }
+
         header::after {
             content: '';
             position: absolute;
@@ -165,7 +181,7 @@
             right: -10%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(47, 141, 70, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(225, 255, 76, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             animation: float 20s ease-in-out infinite;
         }
@@ -240,17 +256,14 @@
 
         /* Navigation */
         nav {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(243, 243, 235, 0.98);
             backdrop-filter: blur(20px);
             padding: 20px 0;
             box-shadow: var(--shadow-sm);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 3px solid transparent;
-            background-image: linear-gradient(white, white), var(--gradient-primary);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
+            border-bottom: 3px solid var(--accent);
             transition: all 0.3s ease;
         }
 
@@ -294,12 +307,12 @@
         }
 
         .hamburger:hover span {
-            background: var(--primary);
+            background: var(--accent);
         }
 
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(9px, 9px);
-            background: var(--primary);
+            background: var(--accent);
         }
 
         .hamburger.active span:nth-child(2) {
@@ -309,7 +322,7 @@
 
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(8px, -8px);
-            background: var(--primary);
+            background: var(--accent);
         }
 
         nav .nav-links {
@@ -338,7 +351,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--gradient-primary);
+            background: var(--primary);
             transition: left 0.3s ease;
             z-index: -1;
         }
@@ -349,13 +362,13 @@
         }
 
         nav a:hover {
-            color: white;
+            color: var(--accent);
             transform: translateY(-2px);
         }
 
         nav a.active {
-            color: white;
-            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+            color: var(--accent);
+            box-shadow: 0 4px 12px rgba(225, 255, 76, 0.3);
         }
 
         /* Main Content */
@@ -363,6 +376,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 60px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Section Cards */
@@ -372,9 +387,8 @@
             padding: 50px;
             margin-bottom: 50px;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-left: 6px solid;
-            border-image: var(--gradient-primary) 1;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-left: 6px solid var(--accent);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(40px);
@@ -389,7 +403,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.4s ease;
@@ -407,15 +421,15 @@
         .section:hover {
             box-shadow: var(--shadow-hover);
             transform: translateY(-8px);
-            border-color: rgba(47, 141, 70, 0.2);
+            border-left-color: var(--accent-dark);
         }
 
         .section-header {
             display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e8e8e8;
+            align-items: flex-start;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
 
         .section-number {
@@ -424,15 +438,16 @@
             justify-content: center;
             width: 70px;
             height: 70px;
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--primary);
+            color: var(--accent);
             border-radius: 18px;
             font-size: 2rem;
             font-weight: 900;
             margin-right: 24px;
-            box-shadow: 0 8px 24px rgba(47, 141, 70, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             position: relative;
             transition: all 0.3s ease;
+            border: 2px solid var(--accent);
         }
 
         .section-number::after {
@@ -441,7 +456,7 @@
             inset: -4px;
             border-radius: 18px;
             padding: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -452,6 +467,8 @@
 
         .section:hover .section-number {
             transform: scale(1.1) rotate(5deg);
+            background: var(--accent);
+            color: var(--primary);
         }
 
         .section:hover .section-number::after {
@@ -460,6 +477,7 @@
 
         .section-title {
             flex: 1;
+            align-self: center;
         }
 
         .section-title h2 {
@@ -467,16 +485,19 @@
             color: var(--primary);
             margin-bottom: 8px;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .section-title p {
             color: var(--text-muted);
             font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 5px;
         }
 
         /* Content Blocks */
         .content-block {
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .content-block:last-child {
@@ -486,23 +507,25 @@
         .content-block h3 {
             font-size: 1.5rem;
             color: var(--text-main);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            font-weight: 600;
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         .content-block h3 i {
             margin-right: 12px;
-            color: var(--primary);
+            color: var(--accent);
             font-size: 1.3rem;
         }
 
         .content-block p {
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 1.05rem;
             line-height: 1.8;
+            text-align: left;
         }
 
         /* Lists */
@@ -514,14 +537,14 @@
         .guideline-list li {
             padding: 18px 24px;
             margin-bottom: 14px;
-            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-            border-left: 5px solid var(--primary);
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+            border-left: 5px solid var(--accent);
             border-radius: var(--border-radius-sm);
             position: relative;
             padding-left: 56px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .guideline-list li::before {
@@ -529,24 +552,24 @@
             position: absolute;
             left: 20px;
             top: 18px;
-            color: white;
+            color: var(--primary);
             font-weight: bold;
             font-size: 1.1rem;
             width: 28px;
             height: 28px;
-            background: var(--gradient-primary);
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(47, 141, 70, 0.3);
+            box-shadow: 0 2px 8px rgba(225, 255, 76, 0.4);
         }
 
         .guideline-list li:hover {
-            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #fefefe 0%, #ffffff 100%);
             transform: translateX(8px);
             box-shadow: var(--shadow);
-            border-left-color: var(--primary-light);
+            border-left-color: var(--accent-dark);
         }
 
         .guideline-list li strong {
@@ -593,9 +616,9 @@
         }
 
         .highlight-box.success {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border-left-color: var(--primary);
-            box-shadow: 0 8px 24px rgba(47, 141, 70, 0.2);
+            background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+            border-left-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(225, 255, 76, 0.25);
         }
 
         .highlight-box h4 {
@@ -611,7 +634,11 @@
         }
 
         .highlight-box.success h4 {
-            color: #155724;
+            color: var(--primary);
+        }
+
+        .highlight-box.success h4 i {
+            color: var(--accent);
         }
 
         .highlight-box h4 i {
@@ -620,12 +647,12 @@
 
         /* Context Check Box */
         .context-check {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
             border: 3px solid var(--accent);
             border-radius: var(--border-radius);
             padding: 36px;
             margin: 36px 0;
-            box-shadow: 0 12px 32px rgba(3, 102, 214, 0.2);
+            box-shadow: 0 12px 32px rgba(225, 255, 76, 0.25);
             position: relative;
             overflow: hidden;
         }
@@ -637,7 +664,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(3, 102, 214, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(225, 255, 76, 0.15) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -647,11 +674,16 @@
         }
 
         .context-check h3 {
-            color: var(--accent);
+            color: var(--primary);
             font-size: 1.6rem;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
+            font-weight: 700;
+        }
+
+        .context-check h3 i {
+            color: var(--accent);
         }
 
         .context-check h3 i {
@@ -674,7 +706,12 @@
         .context-check .check-item:hover {
             transform: translateX(4px);
             box-shadow: var(--shadow);
-            border-left-color: var(--accent-light);
+            border-left-color: var(--accent-dark);
+        }
+
+        .context-check .check-item strong {
+            color: var(--primary);
+            font-weight: 700;
         }
 
         .context-check .check-item:last-child {
@@ -721,7 +758,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
         }
 
         .code-example .comment {
@@ -741,15 +778,15 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin: 30px 0;
+            margin: 35px 0;
+            align-items: start;
         }
 
         .column {
-            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
             padding: 28px;
             border-radius: var(--border-radius-sm);
-            border-top: 4px solid;
-            border-image: var(--gradient-primary) 1;
+            border-top: 4px solid var(--accent);
             box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
@@ -763,6 +800,7 @@
             color: var(--primary);
             margin-bottom: 15px;
             font-size: 1.2rem;
+            font-weight: 700;
         }
 
         /* Badges */
@@ -792,7 +830,7 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #181716 0%, #000000 100%);
             color: white;
             text-align: center;
             padding: 60px 20px;
@@ -808,7 +846,11 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
+        }
+
+        footer i {
+            color: var(--accent);
         }
 
         footer .container {
@@ -929,7 +971,7 @@
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: var(--shadow);
-            border-left: 5px solid var(--primary);
+            border-left: 5px solid var(--accent);
             transition: all 0.3s ease;
         }
 
@@ -945,14 +987,14 @@
             top: 30px;
             width: 30px;
             height: 30px;
-            background: var(--gradient-primary);
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--primary);
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+            box-shadow: 0 4px 12px rgba(225, 255, 76, 0.4);
             z-index: 2;
         }
 
@@ -963,8 +1005,8 @@
             top: 60px;
             width: 2px;
             height: calc(100% + 30px);
-            background: var(--gradient-primary);
-            opacity: 0.3;
+            background: var(--accent);
+            opacity: 0.4;
         }
 
         .workflow-step:last-child::after {
@@ -977,16 +1019,17 @@
             top: 30px;
             width: 30px;
             height: 30px;
-            background: var(--gradient-primary);
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--primary);
             font-weight: bold;
             font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.3);
+            box-shadow: 0 4px 12px rgba(225, 255, 76, 0.4);
             z-index: 3;
+            border: 2px solid var(--primary);
         }
 
         .workflow-step h3 {
@@ -995,6 +1038,7 @@
             padding-left: 25px;
             display: flex;
             align-items: center;
+            font-weight: 700;
         }
 
         .workflow-step h3 i {
@@ -1006,7 +1050,7 @@
         }
 
         .workflow-checklist {
-            background: #f8fafc;
+            background: #fafafa;
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
@@ -1014,9 +1058,10 @@
         }
 
         .workflow-checklist h4 {
-            color: var(--accent);
+            color: var(--primary);
             margin-bottom: 12px;
             font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .workflow-checklist ul {
@@ -1034,7 +1079,7 @@
             content: '☐';
             position: absolute;
             left: 0;
-            color: var(--accent);
+            color: var(--primary);
             font-size: 1.2rem;
         }
 
@@ -1042,18 +1087,21 @@
             display: inline-block;
             margin-top: 15px;
             padding: 8px 16px;
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--primary);
+            color: var(--accent);
             text-decoration: none;
             border-radius: 8px;
             font-size: 0.9rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            border: 1px solid var(--accent);
         }
 
         .workflow-link:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(47, 141, 70, 0.4);
+            background: var(--accent);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(225, 255, 76, 0.4);
         }
 
         .workflow-gate {
@@ -1154,9 +1202,9 @@
                                     <li>Identify the domain (Fintech, Healthcare, Logistics, etc.)</li>
                                     <li>Define the currency of trust (Precision, Privacy, Speed, etc.)</li>
                                     <li>Understand the stakes (What breaks if this fails?)</li>
-                                </ul>
-                            </div>
-
+                    </ul>
+                </div>
+                
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
                                 <p>You can clearly articulate: (1) The domain, (2) The currency of trust, and (3) The stakes. 
@@ -1181,8 +1229,8 @@
                                     <li>Who uses this feature? (End-user persona identified)</li>
                                     <li>What breaks if this fails? (Failure modes understood)</li>
                                     <li>How will I verify it works? (Verification strategy defined)</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1191,8 +1239,8 @@
                             </div>
 
                             <a href="#ownership" class="workflow-link">→ See Section 2: Ownership Details</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
 
                     <!-- Step 3 -->
                     <div class="workflow-step">
@@ -1210,8 +1258,8 @@
                                     <li>Consider failure modes and error handling</li>
                                     <li>Plan for scalability and performance</li>
                                     <li>Design monitoring and logging strategy</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1239,8 +1287,8 @@
                                     <li>Document complex logic and business rules</li>
                                     <li>Consider performance and scalability</li>
                                     <li>Handle errors gracefully</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1270,8 +1318,8 @@
                                     <li>Test failure modes, not just happy paths</li>
                                     <li>Test edge cases and boundary conditions</li>
                                     <li>Verify error messages are clear and helpful</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1280,8 +1328,8 @@
                             </div>
 
                             <a href="#testing" class="workflow-link">→ See Section 3: Testing Standards</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
 
                     <!-- Step 6 -->
                     <div class="workflow-step">
@@ -1300,13 +1348,13 @@
                                     <li>Review for common mistakes (see relevant sections)</li>
                                     <li>Ensure no secrets or sensitive data in code</li>
                                 </ul>
-                            </div>
+                    </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
                                 <p>You've self-audited your code and addressed security/quality issues. 
                                 Don't rely solely on code review to catch problems.</p>
-                            </div>
+                </div>
 
                             <a href="#llm" class="workflow-link">→ See Section 4: LLM Adversary Prompts</a>
                         </div>
@@ -1329,8 +1377,8 @@
                                     <li>Rollback strategy defined</li>
                                     <li>Deployment plan documented</li>
                                     <li>You know how to verify it works in production</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1339,8 +1387,8 @@
                             </div>
 
                             <a href="#ownership" class="workflow-link">→ See Section 2: Ownership Checklist</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
 
                     <!-- Step 8 -->
                     <div class="workflow-step">
@@ -1358,8 +1406,8 @@
                                     <li>Deploy to production</li>
                                     <li>Monitor deployment metrics</li>
                                     <li>Be available for immediate rollback if needed</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT proceed until...</h4>
@@ -1387,8 +1435,8 @@
                                     <li>Review logs for any anomalies</li>
                                     <li>Verify performance metrics meet targets</li>
                                     <li>Confirm user-facing functionality works</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Do NOT mark complete until...</h4>
@@ -1416,8 +1464,8 @@
                                     <li>Review user feedback and analytics</li>
                                     <li>Address any issues promptly</li>
                                     <li>Document learnings for future features</li>
-                                </ul>
-                            </div>
+                    </ul>
+                </div>
 
                             <div class="workflow-gate">
                                 <h4>🚦 Gate: Feature is complete when...</h4>
@@ -1427,8 +1475,8 @@
 
                             <a href="#devops" class="workflow-link">→ See Section 7: Monitoring & Operations</a>
                         </div>
-                    </div>
-                </div>
+            </div>
+        </div>
 
                 <div class="highlight-box" style="margin-top: 40px;">
                     <h4><i class="fas fa-lightbulb"></i> Quick Reference: Workflow Summary</h4>
@@ -1488,7 +1536,7 @@
                             <li><strong>E-commerce:</strong> Product catalogs, checkout, order management</li>
                     </ul>
                 </div>
-                
+
                     <div class="check-item">
                         <strong>2. Define The Currency of Trust</strong>
                         <p style="margin-top: 8px; margin-bottom: 8px;">What is the most critical quality attribute for this domain?</p>
@@ -1564,7 +1612,7 @@
                             <li>Identify ambiguity and seek clarification</li>
                             <li>Consider failure modes and error handling</li>
                     </ul>
-                    </div>
+                </div>
                     <div class="column">
                         <h4><i class="fas fa-code"></i> Implementation Phase</h4>
                         <ul class="guideline-list" style="margin-top: 15px;">
@@ -1572,8 +1620,8 @@
                             <li>Document complex logic and business rules</li>
                             <li>Consider performance and scalability</li>
                         </ul>
-                    </div>
-                </div>
+            </div>
+        </div>
 
                 <div class="two-column" style="margin-top: 20px;">
                     <div class="column">
@@ -1593,7 +1641,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+    </div>
 
             <div class="content-block">
                 <h3><i class="fas fa-comments"></i> Communication & Explanation</h3>
