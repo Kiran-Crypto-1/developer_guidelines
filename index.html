@@ -349,7 +349,7 @@
         }
 
         nav a.active {
-            color: var(--accent);
+            color: #ffffff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -1057,18 +1057,18 @@
         }
 
         .workflow-checklist h4::before {
-            content: '☐';
-            color: var(--primary);
+            content: '✓';
+            color: #ffffff;
             margin-right: 8px;
-            font-weight: normal;
+            font-weight: bold;
             font-size: 1.2rem;
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 24px;
             vertical-align: middle;
         }
 
@@ -1084,11 +1084,19 @@
         }
 
         .workflow-checklist li::before {
-            content: '☐';
+            content: '✓';
             position: absolute;
             left: 0;
-            color: var(--primary);
+            color: #ffffff;
             font-size: 1.2rem;
+            background: var(--primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .workflow-link {
